@@ -1,10 +1,19 @@
 "use client";
 import "./globals.css";
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Inter } from "next/font/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+
 const inter = Inter({ subsets: ["latin"] });
-const queryClient = new QueryClient({});
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 60 * 24
+    }
+  }
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -17,6 +26,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className="">{children}</body>
       </html>
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }
